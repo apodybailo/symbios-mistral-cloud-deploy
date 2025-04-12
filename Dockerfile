@@ -1,6 +1,8 @@
 # Базовий образ Ollama
 FROM ollama/ollama
-# Відкриваємо порт
+
+# Відкриваємо стандартний порт Ollama
 EXPOSE 11434
-# Запускаємо Ollama сервер (правильний синтаксис)
-ENTRYPOINT ["ollama", "serve"]
+
+# Завантажуємо модель Mistral і запускаємо сервер
+ENTRYPOINT ["sh", "-c", "ollama pull mistral && ollama serve"]
