@@ -1,8 +1,8 @@
-# Базовий образ Ollama
+# Базовий образ
 FROM ollama/ollama
 
-# Відкриваємо стандартний порт Ollama
+# Вказуємо, що слухає порт 11434
 EXPOSE 11434
 
-# Завантажуємо модель Mistral і запускаємо сервер
-ENTRYPOINT ["sh", "-c", "ollama pull mistral && ollama serve"]
+# Просто запускаємо сервер — без pull
+ENTRYPOINT ["ollama", "serve"]
