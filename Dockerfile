@@ -1,8 +1,8 @@
-# Базовий образ
 FROM ollama/ollama
 
-# Вказуємо, що слухає порт 11434
+# Вказуємо, яку модель запускати при старті контейнера
+ENV OLLAMA_MODELS=mistral
+
 EXPOSE 11434
 
-# Просто запускаємо сервер — без pull
 ENTRYPOINT ["ollama", "serve"]
