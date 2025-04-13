@@ -1,3 +1,12 @@
 #!/bin/bash
-echo "[✓] Starting Telegram bot..."
-python3 telegram_gate_architect_voice_ollama_v2.py
+
+# Завантажуємо модель (лише якщо її ще нема)
+if ! ollama list | grep -q "mistral"; then
+    echo "🧠 Pulling Mistral model..."
+    ollama pull mistral
+else
+    echo "✅ Mistral already pulled."
+fi
+
+# Запускаємо сервер
+exec ollama serve
