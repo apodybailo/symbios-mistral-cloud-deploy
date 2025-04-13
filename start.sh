@@ -1,12 +1,25 @@
 #!/bin/bash
 
-# Завантажуємо модель (лише якщо її ще нема)
+# Стартуємо ollama у фоновому режимі
+ollama serve &
+
+# Чекаємо поки ollama сервер буде доступний (до 60 секунд)
+for i in {1..30}; do
+  if curl -s http://localhost:11434 > /dev/null; then
+    echo "✅ Ollama доступний"
+    break
+  fi
+  echo "⏳ Очікуємо запуск Ollama... ($i)"
+  sleep 2
+done
+
+# Перевірка наявності моделі
 if ! ollama list | grep -q "mistral"; then
-    echo "🧠 Pulling Mistral model..."
-    ollama pull mistral
+  echo "🧠 Завантажуємо модель Mistral..."
+  ollama pull mistral
 else
-    echo "✅ Mistral already pulled."
+  echo "✅ Модель Mistral вже завантажено."
 fi
 
-# Запускаємо сервер
-exec ollama serve
+# Тримаємо процес ollama (якщо зупиниться — контейнер впаде)
+wait
