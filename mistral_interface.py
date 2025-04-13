@@ -7,7 +7,7 @@ def query_mistral(prompt: str) -> str:
     response = requests.post(
         f"{OLLAMA_API_URL}/api/generate",
         json={
-            "model": "llama2",  # активна модель
+            "model": "llama2",
             "prompt": prompt,
             "stream": False
         }
